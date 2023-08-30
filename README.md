@@ -1,6 +1,10 @@
 # Modeling-Dynamics-Ideal-Gas-Molecules
 A framework to simulate and visualize molecular collisions, and extract thermodynamic insights using Python.
 
+Table of contents: 
+- 
+- 
+- 
 # Introduction
 Imagine someone constantly throwing a ball at your head. Depending upon the size and mass of the ball, you may feel anything between mild annoyance and unbearable agony. And yet, there are countless such “balls” colliding with, not only your head, but your whole body every instant and you do not feel a thing. Nitrogen, oxygen, and water molecules in the air are in constant random motion around you, even when the air appears to be stationary. The result of the collisions of these molecules with you is that air exerts a certain pressure on you (termed atmospheric pressure). Since we are “used to” the atmospheric pressure, it does not feel like anything out of the ordinary, but if you are ever in an airplane or a hyperbaric chamber, where the pressure deviates from the atmospheric pressure, you may notice different sensations, like ear-popping, that are your body’s responses to changes in pressure.
 
@@ -31,3 +35,5 @@ We will test two relationships based on the ideal gas law with our model.
 At a constant temperature and number of moles, the pressure is inversely proportional to the volume.
 At a constant volume and number of moles, the pressure is directly proportional to the temperature.
 The former is referred to as Boyle’s law and the latter is referred to as Gay-Lussac’s law, both named after researchers that first discovered the relationships between these variables through experiments.
+
+# Conclusions 
