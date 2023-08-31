@@ -340,4 +340,20 @@ class Simulation(object):
         anim_hist = FuncAnimation(fig, self.plot_hist, frames=self.n_iters, interval=50, blit=False)
         
         # Save animation
-        anim_hist.save(filename, writer="ffmpeg")
+        anim_hist.save(filename, writer="Pillow")
+
+if __name__ == "__main__":
+    # Create simulation object and define input parameters
+    sim = Simulation(name="kinetic_theory_simulation", box_dim=[1.0, 1.0], t_step=1e-2, particle_radius=1e-2)
+    
+    # Add N2 molecules to the box
+    sim.add_molecules("N2", n=100, v_mean=1.0, v_std=0.2, v_dist="normal")
+    
+    # Run the simulation and store the pressure output in P
+    P = sim.run_simulation(15)
+    
+    # Make the box animation
+    sim.make_animation()
+    
+    # Make the histogram animation
+    sim.make_velocity_histogram_animation()
