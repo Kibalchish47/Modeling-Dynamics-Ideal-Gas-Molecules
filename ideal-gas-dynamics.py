@@ -6,6 +6,10 @@ import numpy as np
 import scipy as sci
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from celluloid import Camera
+
+fig = plt.figure()
+camera = Camera(fig)
 #------------------------------------------------------------------------------------
 #### Molecule Class
 class Molecule(object):
@@ -82,7 +86,7 @@ class Simulation(object):
         if dist == "uniform":
             self.v_mean = v_mean
             self.v_std = v_std
-            _vel = np.random.uniform(low=v_mean, high=v_std, size=(n,self.dim))
+            _vel = np.random.uniform(low=v_mean, high=v_std, size=(n, self.dim))
         
         #All velocities equal to v_mean
         if dist == "equal":
@@ -112,10 +116,10 @@ class Simulation(object):
     #--------------------------------------------------------------------------------
     def make_matrices(self):
         # Make empty matrices to store positions, velocities, colors, and masses
-        self.positions=np.zeros((self.n_molecules, self.dim))
-        self.velocities=np.zeros((self.n_molecules, self.dim))
-        self.colors=np.zeros(self.n_molecules, dtype="object")
-        self.masses=np.zeros(self.n_molecules)
+        self.positions = np.zeros((self.n_molecules, self.dim))
+        self.velocities = np.zeros((self.n_molecules, self.dim))
+        self.colors = np.zeros(self.n_molecules, dtype="object")
+        self.masses = np.zeros(self.n_molecules)
         
         #Iterate over molecules, get their properties and assign to matrices
         for i,m in enumerate(self.molecules):
@@ -277,6 +281,7 @@ class Simulation(object):
            
             # Call the update_positions function to handle collisions and update positions
             self.update_positions()
+            camera.snap()
             
         # Caclulate final pressure
         self.P = self.wall_momentum/(self.n_iters * self.t_step * np.sum(self.box_dim))
@@ -311,7 +316,7 @@ class Simulation(object):
         plt.xlim([0, self.box_dim[0]])
         plt.ylim([0, self.box_dim[1]])
     #--------------------------------------------------------------------------------
-    def make_animation(self, filename="KTG_animation.mp4"):
+    def make_animation(self, filename="ideal_gas_animation.gif"):
         #Call the function to create the figure
         fig = self.create_2D_box()
         
@@ -319,7 +324,7 @@ class Simulation(object):
         anim = FuncAnimation(fig, self.show_molecules, frames=self.n_iters, interval=50, blit=False)
         
         #Save animation as a file
-        anim.save(filename, writer="ffmpeg")
+        anim.save(filename, writer="PillowWriter")
     #--------------------------------------------------------------------------------
     def plot_hist(self, i):
         # Clear axes
@@ -332,15 +337,14 @@ class Simulation(object):
         plt.xlim([0, 3])
         plt.ylim([0, 3])
     #--------------------------------------------------------------------------------
-    def make_velocity_histogram_animation(self, filename="KTG_histogram.mp4"):
+    def make_velocity_histogram_animation(self, filename="KTG_histogram.gif"):
         # Create empty figure
         fig = plt.figure(figsize=(5, 5), dpi=500)
-        
         # Create animation
         anim_hist = FuncAnimation(fig, self.plot_hist, frames=self.n_iters, interval=50, blit=False)
         
         # Save animation
-        anim_hist.save(filename, writer="Pillow")
+        anim_hist.save(filename, writer="ffmeg")
 
 if __name__ == "__main__":
     # Create simulation object and define input parameters
