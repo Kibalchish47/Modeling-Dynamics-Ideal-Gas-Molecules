@@ -36,4 +36,15 @@ At a constant temperature and number of moles, the pressure is inversely proport
 At a constant volume and number of moles, the pressure is directly proportional to the temperature.
 The former is referred to as Boyle’s law and the latter is referred to as Gay-Lussac’s law, both named after researchers that first discovered the relationships between these variables through experiments.
 
+# Results of the Simulation
+
+# Extracting Thermodynamic Insights 
+We return to the ideal gas law that relates various thermodynamic variables to each other. As mentioned previously, we test two relationships — pressure against volume and pressure against temperature. We keep the number of molecules in the box constant for all the subsequent simulations. 
+The three variables — pressure, volume, and temperature — are calculated as follows: the pressure is the net momentum exchanged with the walls during the entire simulation divided by the product of the total simulation time and perimeter of the box. The volume is defined as the product of the length and breadth of the box (technically it is the area, since we are working in two dimensions, but the insights can be generalized easily to three dimensions).
+
+Defining the temperature is trickier — since the temperature is proportional to the average kinetic energy of the molecules in the box, we consider the square of the mean velocity of the initial distribution to be a proxy for temperature. To remove any stochasticity from this estimate, the initial velocities assigned to the molecules in these simulations are set to a single specified value. 
+For instance, if the specified value is 1 m/s, the initial velocities of all molecules are either +1 m/s or -1 m/s. This ensures that the initial total kinetic energy has a well-defined value that remains the same across all simulations that have the same temperature. Essentially, when the temperatures in two simulations are same, their initial total kinetic energies are same, which should ensure that the average kinetic energy during the simulation is also the same.
+
+The results of the simulations are given in Figure 2. The average pressure on the walls of the box increases linearly with an increase in the inverse of the volume at a constant temperature (see Figure 2a). The slope of each isotherm is proportional to the temperature, consistent with the ideal gas law. In a second set of simulations, it is observed that the pressure increases linearly with an increase in the temperature at a constant volume (see Figure 2b). In this case, the slope of each isochore is inversely proportional to the volume, also consistent with the ideal gas law. Therefore, these microscopic simulations are able to reproduce trends in thermodynamic variables that are consistent with macroscopic theories like the ideal gas law.
+
 # Conclusions 
