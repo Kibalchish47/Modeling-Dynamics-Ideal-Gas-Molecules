@@ -5,11 +5,14 @@ import time
 import numpy as np
 import scipy as sci
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import matplotlib.animation as animation
 from celluloid import Camera
 
 fig = plt.figure()
 camera = Camera(fig)
+cwdir = os.getcwd()
+dir_path = os.path.join(cwdir, "results")
+os.chdir(dir_path)
 #------------------------------------------------------------------------------------
 #### Molecule Class
 class Molecule(object):
@@ -319,12 +322,11 @@ class Simulation(object):
     def make_animation(self, filename="ideal_gas_animation.gif"):
         #Call the function to create the figure
         fig = self.create_2D_box()
-        
         #Create the animation
-        anim = FuncAnimation(fig, self.show_molecules, frames=self.n_iters, interval=50, blit=False)
-        
+        anim = animation.FuncAnimation(fig, self.show_molecules, frames=self.n_iters, interval=50, blit=False)
         #Save animation as a file
-        anim.save(filename, writer="PillowWriter")
+        anim.save("Idea-Gas-Dynamics.gif")
+        print("\nAnimation saved as Idea-Gas-Dynamics.gif in results")
     #--------------------------------------------------------------------------------
     def plot_hist(self, i):
         # Clear axes
@@ -341,15 +343,14 @@ class Simulation(object):
         # Create empty figure
         fig = plt.figure(figsize=(5, 5), dpi=500)
         # Create animation
-        anim_hist = FuncAnimation(fig, self.plot_hist, frames=self.n_iters, interval=50, blit=False)
-        
+        anim_hist = animation.FuncAnimation(fig, self.plot_hist, frames=self.n_iters, interval=50, blit=False)
         # Save animation
-        anim_hist.save(filename, writer="ffmeg")
+        anim_hist.save("Idea-Gas-Dynamics.gif")
+        print("\nVelocity Histogram saved as Idea-Gas-Dynamics.gif in results")
 
 if __name__ == "__main__":
     # Create simulation object and define input parameters
     sim = Simulation(name="kinetic_theory_simulation", box_dim=[1.0, 1.0], t_step=1e-2, particle_radius=1e-2)
-    
     # Add N2 molecules to the box
     sim.add_molecules("N2", n=100, v_mean=1.0, v_std=0.2, v_dist="normal")
     
